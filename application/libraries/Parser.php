@@ -12,6 +12,10 @@ class Parser {
 		// Perform an HTML clean
 		$fText = htmlspecialchars($fText);
 		
+		// Bolds and THEN italics
+		$this->_build_bolds($fText);
+		$this->_build_italics($fText);
+		
 		// UL Lists
 		preg_match_all('/(\*([^*\n]*?)\n)+/i', $fText, $result);
 		foreach($result[0] as $list)
@@ -106,7 +110,6 @@ class Parser {
 	{
 		// Super complicated regex
 		preg_match_all('/\[((?:(https?|ftp):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$])(| [^\]]*?)\]/i', $fText, $result);
-		//print_r($result);die;
 		foreach($result[0] as $id => $text)
 		{
 			$name = ($result[3][$id] != '') ? $result[3][$id] : $result[1][$id];
@@ -124,6 +127,26 @@ class Parser {
 			$protocol = ($result[2][$id] != '') ? '' : 'http://' ;
 			$img = "<img src=\"".$protocol.$result[1][$id]."\" />";
 			$fText = str_replace($text, $img, $fText);
+		}
+	}
+	
+	function _build_bolds(&$fText)
+	{
+		preg_match_all('/\'\'\'([^\'](.)*?)\'\'\'/', $fText, $result);
+		foreach($result[0] as $id => $text)
+		{
+			$bold = "<strong>".$result[1][$id]."</strong>";
+			$fText = str_replace($text, $bold, $fText);
+		}
+	}
+	
+	function _build_italics(&$fText)
+	{
+		preg_match_all('/\'\'([^\'](.)*?)\'\'/', $fText, $result);
+		foreach($result[0] as $id => $text)
+		{
+			$italic = "<em>".$result[1][$id]."</em>";
+			$fText = str_replace($text, $italic, $fText);
 		}
 	}
 }
