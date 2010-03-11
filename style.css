@@ -36,13 +36,14 @@ hr {
 }
 
 .spacer {
-	width: 700px;
+	width: auto;
 	margin: auto;
 }
 
 .container {
-	margin: 30px auto 50px;
-	width: 700px;
+	margin: 30px auto 30px;
+	padding: 0px 30px;
+	max-width: 900px;
 }
 
 #tabs-container {
@@ -220,6 +221,18 @@ div#editorTools {
 
 .delete_img {
 	background: url("img/delete.png") no-repeat scroll 5px 4px #FF4F49;
+	padding-left: 26px;
+}
+
+.new_page {
+	background-color: #a7f29d;
+	border: 2px solid #95da8b;
+	padding: 5px;
+	margin: 10px 0;
+}
+
+.new_page_img {
+	background: url("img/add.png") no-repeat scroll 5px 4px #a7f29d;
 	padding-left: 26px;
 }
 

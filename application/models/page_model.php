@@ -26,7 +26,7 @@ class Page_model extends SW_Model {
 		$this->db->where('page_title', $page_title);
 		$this->db->limit(1);
 		$query = $this->db->get();
-		$this->load($query);
+		return $this->load($query, $page_title);
 	}
 	
 	function load_id($page_id)
@@ -36,14 +36,14 @@ class Page_model extends SW_Model {
 		$this->db->where('page_id', $page_id);
 		$this->db->limit(1);
 		$query = $this->db->get();
-		$this->load($query);
+		return $this->load($query);
 	}
 	
-	function load(&$query)
+	function load(&$query, $title = '')
 	{
 		if( $query->num_rows() == 0 )
 		{
-			die('No rows :( ');
+			return false;
 		}
 		
 		$row = $query->row();
@@ -59,7 +59,6 @@ class Page_model extends SW_Model {
 	
 	function save()
 	{
-		//print_r($this->changed); die;
 		if(count($this->changed) == 0)
 		{
 			return;
@@ -82,11 +81,13 @@ class Page_model extends SW_Model {
 			}
 		}
 		
-		//print_r($pt_data); die;
-		
 		if($this->id == 0)
 		{
 			// This is a new page
+			$this->db->insert('page_text', $pt_data);
+			$this->rev_id = $this->db->insert_id();
+			$p_data['page_latest'] = $this->rev_id;
+			$this->db->insert('page', $p_data);
 		}
 		else
 		{

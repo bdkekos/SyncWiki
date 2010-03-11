@@ -24,7 +24,13 @@ class Page extends Controller {
 		$page_title = str_replace(array(' '), array('_'), $page);
 		$page = str_replace(array('_'), array(' '), $page);
 		
-		$this->page->load_page($page_title);
+		$query = $this->page->load_page($page_title);
+		
+		if($query === FALSE)
+		{
+			// The page doesn't exist
+			$this->page->text = 'This page doesn\'t exist yet, press edit to create it';
+		}
 		
 		$aText = $this->parser->parse($this->page->text);
 		
@@ -97,13 +103,25 @@ class Page extends Controller {
 	
 	function edit_submit($page)
 	{
-		if(!$this->input->post('pageid'))
+		if($this->input->post('pageid') === FALSE)
 		{
 			redirect($this->_make_link($page).'/edit');
 			return;
 		}
 		$this->load->model('Page_model', 'page');
-		$this->page->load_id($this->input->post('pageid'));
+		if($this->input->post('pageid') != 0)
+		{
+			$this->page->load_id($this->input->post('pageid'));
+		}
+		else
+		{
+			$this->page->set('title', $page);
+		}
+		if($this->page->locked == 2)
+		{
+			redirect($this->_make_link($page).'/edit');
+			return;
+		}
 		$this->page->set('text', $this->input->post('editbox'), false);
 		$this->page->save();
 		redirect($this->_make_link($page));
@@ -121,7 +139,6 @@ class Page extends Controller {
 		$this->page->set('locked', $this->input->post('newlevel'));
 		$this->page->save();
 		print json_encode(array('success' => 'Protection level changed'));
-		return;
 	}
 	
 	function _make_link($page)

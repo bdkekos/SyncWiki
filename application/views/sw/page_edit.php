@@ -2,6 +2,11 @@
 				<?php echo build_tabs($tabs, $page_title); ?>
 				<div class="content" id="editor">
 					<?php echo edit_page_locked($locked_status); ?>
+					<?php if($pageid == 0): ?>
+					<div class="new_page new_page_img top_bar">
+						The page you're editing doesn't exist, when you save you will create it.
+					</div>
+					<?php endif; ?>
 					<?php echo form_open($page_link.'/edit/submit'); ?>
 						<?php 
 							$data = array(
@@ -14,7 +19,7 @@
 							echo form_textarea($data, $editText);
 						 ?>
 						<br />
-						
+						<?php if($locked_status != 2): ?>
 						<div id="afterArea">
 							<div id="reason">
 								<label for="reason" style="margin-right: 6px;">Reason:
@@ -40,8 +45,10 @@
 								?>
 							</div>
 						</div>
+						<?php endif; ?>
 					<?php echo form_hidden('pageid', $pageid); ?>
 					<?php echo form_close(); ?>
+					<?php if($pageid > 0): ?>
 					<hr />
 					<div id="editorTools">
 						<ul>
@@ -95,6 +102,7 @@
 							</form>
 						</div>
 					</div>
+					<?php endif; ?>
 				</div>
 				<script type="text/javascript"> var locked_status = <?php echo $locked_status; ?>; var lock_link = '<?php echo $lock_link; ?>'; var pageid = <?php echo $pageid; ?>; </script>
 <?php $this->load->view('sw/global_footer'); ?>
