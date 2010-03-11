@@ -115,7 +115,7 @@ class Page extends Controller {
 		}
 		else
 		{
-			$this->page->set('title', $page);
+			$this->page->set('title', $this->_make_link($page));
 		}
 		if($this->page->locked == 2)
 		{
