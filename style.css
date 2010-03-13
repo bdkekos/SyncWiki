@@ -41,9 +41,14 @@ hr {
 }
 
 .container {
-	margin: 30px auto 30px;
+	margin: 6px auto 30px;
 	padding: 0px 30px;
 	max-width: 900px;
+}
+
+#top {
+	text-align: right;
+	margin: 5px auto;
 }
 
 #tabs-container {
@@ -309,4 +314,37 @@ div.options {
 
 .panel h2 {
 	padding: 0;
+}
+
+/* Login */
+
+#login_box {
+	margin: 50px auto;
+	width: 415px;
+}
+
+#login_box_form {
+	padding: 30px 70px;
+}
+
+#login_box table td {
+	color: #666666;
+	font-size: 11px;
+	padding: 3px 0 3px 5px;
+	vertical-align: middle;
+}
+
+#login_box table td input {
+	width: 200px;
+}
+
+/* Success page */
+
+#redirect_page {
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+#redirect_page p {
+	font-size: 10pt;
 }

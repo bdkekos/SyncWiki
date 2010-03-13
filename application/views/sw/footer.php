@@ -1,5 +1,5 @@
 				<div id="footer">
-					Last sync: Mar 3 12:30 GMT<br />
+					Version 0.1.3<br />
 					&copy; 2010 compwhizii
 				</div>
 			</div>

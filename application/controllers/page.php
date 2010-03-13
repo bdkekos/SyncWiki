@@ -7,7 +7,6 @@ class Page extends Controller {
 		parent::__construct();
 		
 		$this->load->helper('tab');
-		$this->load->helper('url'); 
 	}
 	
 	function index()
@@ -56,7 +55,7 @@ class Page extends Controller {
 			'text' => $aText
 		);
 		$this->load->vars($vars);
-		$this->load->view('sw/page_view');
+		$this->load->view('sw/page/view');
 	}
 	
 	function edit($page, $section = '')
@@ -85,20 +84,38 @@ class Page extends Controller {
 			)
 		);
 		
+		$show = array(
+			'newpage_notice' => ($this->page->id == 0),
+			// We need to add a permissions error
+			'save_buttons' => (($this->page->id == 0 && $this->ion_auth->logged_in())
+								OR
+									( $this->page->locked == 0 && $this->ion_auth->logged_in()
+										OR
+										($this->ion_auth->logged_in() && $this->page->locked == 1)
+										OR
+										($this->ion_auth->is_admin())
+									)
+								),
+			'tools' => ($this->page->id != 0),
+			'mod_tools' => ($this->ion_auth->is_admin()),
+			'report' => ($this->ion_auth->logged_in())
+		);
+		
 		$vars = array(
 			'tabs' => $tabs,
 			'title' => $page,
 			'page_title' => $page,		// This is confusing
 			'page_link' => $page_title, // :p
-			'headinclude' => $this->load->view('sw/page_edit_headinclude', '', TRUE),
-			'bottom_script' => $this->load->view('sw/page_edit_bottom_script', '', TRUE),
+			'headinclude' => $this->load->view('sw/page/edit_headinclude', '', TRUE),
+			'bottom_script' => $this->load->view('sw/page/edit_bottom_script', '', TRUE),
 			'editText' => $this->page->text,
 			'locked_status' => $this->page->locked,
 			'pageid' => $this->page->id,
-			'lock_link' => site_url('ajax/page/update_lock')
+			'lock_link' => site_url('ajax/page/update_lock'),
+			'show' => $show
 		);
 		$this->load->vars($vars);
-		$this->load->view('sw/page_edit');
+		$this->load->view('sw/page/edit');
 	}
 	
 	function edit_submit($page)
@@ -117,7 +134,7 @@ class Page extends Controller {
 		{
 			$this->page->set('title', $this->_make_link($page));
 		}
-		if($this->page->locked == 2)
+		if($this->page->locked == 2 && !$this->ion_auth->is_admin())
 		{
 			redirect($this->_make_link($page).'/edit');
 			return;
@@ -129,6 +146,10 @@ class Page extends Controller {
 	
 	function ajax_update_lock()
 	{
+		if(!$this->ion_auth->is_admin())
+		{
+			return;
+		}
 		if(!$this->input->post('pageid') || $this->input->post('newlevel') === FALSE)
 		{
 			print json_encode(array('error' => 'Missing pageid/newlevel'));

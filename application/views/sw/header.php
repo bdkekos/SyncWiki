@@ -3,8 +3,12 @@
 	<head>
 		<title><?php echo $title ?> - SyncWiki</title>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>style.css" />
+		<?php if(isset($redirect)): ?>
+		<meta http-equiv="refresh" content="<?php echo $redirect['length']; ?>;URL=<?php echo $redirect['url']; ?>" />
+		<?php endif; ?>
 		<?php if(isset($headinclude)) { echo $headinclude; } ?>
 	</head>
 	<body>
 		<div class="spacer">
+			<?php echo top_user_bar(); ?>
 			<div class="container">

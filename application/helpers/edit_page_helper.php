@@ -9,6 +9,6 @@ if( ! function_exists('edit_page_locked') )
 			return '';
 		$who = ($lock_status == 1) ? 'unregisted users' : 'non-admins';
 		$CI->load->vars('locked_who', $who);
-		return $CI->load->view('sw/page_edit_locked', '', TRUE);
+		return $CI->load->view('sw/page/edit_locked', '', TRUE);
 	}
 }

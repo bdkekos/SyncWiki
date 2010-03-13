@@ -47,7 +47,12 @@ $route['scaffolding_trigger'] = "";
 ** SyncWiki Routes Ahoy! **
 **************************/
 
+// Auth
+
+$route['auth'] = 'auth';
+
 // Pages
+// Must be last as they override
 
 $route['([^/]*?)'] = 'page/view/$1';
 $route['([^/]*?)/edit'] = 'page/edit/$1';
