@@ -1,5 +1,5 @@
 				<div id="footer">
-					Version 0.1.3<br />
+					Version 0.1.5<br />
 					&copy; 2010 compwhizii
 				</div>
 			</div>

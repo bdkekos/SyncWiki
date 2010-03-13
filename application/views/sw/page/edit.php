@@ -25,7 +25,7 @@
 								<label for="reason" style="margin-right: 6px;">Reason:
 								<?php 
 									$data = array(
-										'name' => 'reason',
+										'name' => 'comment',
 										'maxlength' => '200',
 										'size' => '55',
 										'tabindex' => '2'
@@ -66,7 +66,7 @@
 						<?php if($show['report']): ?>
 						<div id="report" class="report panel">
 							<h2>Report this page</h2>
-							<p>If you feel that this page is in vilation of the rules, you should report it.</p>
+							<p>If you feel that this page is in violation of the rules, you should report it.</p>
 							<br />
 							<form action="#" id="report_form">
 								<p>I feel that this page is:</p>

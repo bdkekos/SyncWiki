@@ -89,7 +89,7 @@ class Page extends Controller {
 			// We need to add a permissions error
 			'save_buttons' => (($this->page->id == 0 && $this->ion_auth->logged_in())
 								OR
-									( $this->page->locked == 0 && $this->ion_auth->logged_in()
+									( ($this->page->locked == 0 && $this->ion_auth->logged_in())
 										OR
 										($this->ion_auth->logged_in() && $this->page->locked == 1)
 										OR
@@ -129,20 +129,25 @@ class Page extends Controller {
 		if($this->input->post('pageid') != 0)
 		{
 			$this->page->load_id($this->input->post('pageid'));
+			if($this->page->locked == 2 && !$this->ion_auth->is_admin())
+			{
+				redirect($this->_make_link($page).'/edit');
+				return;
+			}
+			$this->page->edit($this->input->post('editbox'), $this->input->post('comment'));
 		}
 		else
 		{
-			$this->page->set('title', $this->_make_link($page));
+			$this->page->create($this->_make_link($page), $this->input->post('editbox'),
+								 $this->input->post('comment'));
 		}
-		if($this->page->locked == 2 && !$this->ion_auth->is_admin())
-		{
-			redirect($this->_make_link($page).'/edit');
-			return;
-		}
-		$this->page->set('text', $this->input->post('editbox'), false);
-		$this->page->save();
 		redirect($this->_make_link($page));
 	}
+	
+	/*function history($page)
+	{
+		
+	}*/
 	
 	function ajax_update_lock()
 	{
@@ -157,8 +162,7 @@ class Page extends Controller {
 		}
 		$this->load->model('Page_model', 'page');
 		$this->page->load_id($this->input->post('pageid'));
-		$this->page->set('locked', $this->input->post('newlevel'));
-		$this->page->save();
+		$this->page->update_lock($this->input->post('newlevel'));
 		print json_encode(array('success' => 'Protection level changed'));
 	}
 	

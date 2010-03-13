@@ -34,7 +34,7 @@
 								</table>
 								<div style="padding: 3px 0 3px 8px; overflow: hidden; vertical-align: middle;">
 									<span style="float: right;"><?php echo form_checkbox('remember', '1', TRUE); ?> <?php echo form_label('Remember me', 'remember'); ?></span>
-									<a href="<?php echo site_url('url/register'); ?>">Register</a>
+									<a href="<?php echo site_url('auth/register'); ?>">Register</a>
 								</div>
 								<div style="float: right; padding-top: 10px;">
 									<?php echo form_submit('login', 'Login', 'tabindex="3"'); ?>
