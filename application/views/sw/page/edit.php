@@ -78,6 +78,7 @@
 									<input type="text" id="other_box" name="other" size="30" style="margin-left: 15px;" />
 								</div>
 								<input type="submit" value="Report" />
+								<input type="button" class="cancel" value="Cancel" />
 							</form>
 						</div>
 						<?php endif; ?>
@@ -94,6 +95,7 @@
 									<label for="level"><?php echo form_radio('level', '2', ($locked_status == 2)); ?> Admins only</label>
 								</div>
 								<?php echo form_submit('update_lock', 'Save'); ?>
+								<input type="button" class="cancel" value="Cancel" />
 							</form>
 						</div>
 						<div id="delete" class="delete panel">
@@ -106,6 +108,7 @@
 										<input type="text" name="reason" id="delete_reason" size="30" /></label>
 								</div><br /><br />
 								<input type="submit" value="Delete" />
+								<input type="button" class="cancel" value="Cancel" />
 							</form>
 						</div>
 						<?php endif; ?>
