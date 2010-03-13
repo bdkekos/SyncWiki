@@ -1,7 +1,5 @@
 <?php
 
-require_once('sw_model.php');
-
 class Page_model extends Model {
 	
 	var $title = '';
