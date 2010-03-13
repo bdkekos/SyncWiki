@@ -26,6 +26,10 @@ p {
 	margin-bottom: 5px;
 }
 
+.clear {
+	clear: both;
+}
+
 textarea {
 	width: 100%;
 }
@@ -62,6 +66,11 @@ hr {
 	display: inline;
 	font-size: 18pt;
 	font-weight: bold;
+}
+
+#return {
+	display: inline;
+	margin-left: 4px;
 }
 
 .content {
@@ -325,6 +334,19 @@ div.options {
 
 #login_box_form {
 	padding: 30px 70px;
+}
+
+#login_box_form_text label {
+	clear: both;
+	float: left;
+	width: 55px;
+	margin-bottom: 4px;
+}
+
+#login_box_form_text input {
+	float: left;
+	width: 210px;
+	margin-bottom: 4px;
 }
 
 #login_box table td {
