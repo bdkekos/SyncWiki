@@ -9,7 +9,7 @@ if( ! function_exists('buid_tabs') )
 	 * @param array $tabs
 	 * @return tabs in HTML
 	 */
-	function build_tabs($tabs, $title = '')
+	function build_tabs($tabs, $title = '', $showhome = false)
 	{
 		if( ! is_array($tabs) )
 		{
@@ -21,6 +21,11 @@ if( ! function_exists('buid_tabs') )
 		if( $title != '' )
 		{
 			$tabs_html .= "<div id=\"title\">$title</div>";
+		}
+		
+		if ($showhome)
+		{
+			$tabs_html .= "<div id=\"return\"><a href=\"".base_url()."\">&laquo; Go home</a></div>";
 		}
 		
 		if( count($tabs) > 0 )
