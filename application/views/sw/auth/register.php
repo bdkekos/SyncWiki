@@ -1,5 +1,5 @@
 <?php $this->load->view('sw/header'); ?>
-				<?php echo build_tabs($tabs, 'Register', true); ?>
+				<?php echo build_tabs($tabs, 'Register'); ?>
 				<div class="content">
 					<div id="login_box">
 						<div id="login_box_form">

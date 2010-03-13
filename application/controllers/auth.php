@@ -8,6 +8,7 @@ class Auth extends Controller {
 		$this->load->library('form_validation');
 		$this->load->database();
 		$this->load->helper(array('tab', 'form'));
+		$this->load->vars('home_link', TRUE);
 	}
 	
 	function index()
