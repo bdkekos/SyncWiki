@@ -308,6 +308,12 @@ div.options {
 	line-height: 20px;
 }
 
+#editList img {
+	height: 12px;
+	width: 12px;
+	vertical-align: middle;
+}
+
 #editList div.alt1 {
 	background-color: #e5f2ff;
 }

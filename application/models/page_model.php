@@ -62,7 +62,7 @@ class Page_model extends Model {
 		return $query;
 	}
 	
-	function edit($text, $comment = '')
+	function edit($text, $comment = '', $create = false)
 	{
 		$page_text = array(
 			'pagetext_text' => $text
@@ -76,7 +76,8 @@ class Page_model extends Model {
 			'pagerev_comment' => $comment,
 			'pagerev_userid' => (($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : '0' ),
 			'pagerev_userip' => $this->input->ip_address(),
-			'pagerev_timestamp' => time()
+			'pagerev_timestamp' => time(),
+			'pagerev_type' => ($create) ? 'create' : 'edit'
 		);
 		$this->db->insert('page_revision', $page_revision);
 		$this->rev_id = $this->db->insert_id();
@@ -95,15 +96,26 @@ class Page_model extends Model {
 		);
 		$this->db->insert('page', $page);
 		$this->id = $this->db->insert_id();
-		$this->edit($text, $comment);
+		$this->edit($text, $comment, true);
 	}
 	
-	function update_lock($level)
+	function update_protection($level)
 	{
 		$page = array(
 			'page_locked' => $level
 		);
 		$this->db->where('page_id', $this->id);
 		$this->db->update('page', $page);
+		
+		$page_revision = array(
+			'pagerev_page' => $this->id,
+			'pagerev_text' => $this->text_id,
+			'pagerev_comment' => 'Protection level changed (Level '.$this->locked.' -> '.$level.' )',
+			'pagerev_userid' => (($this->session->userdata('user_id')) ? $this->session->userdata('user_id') : '0' ),
+			'pagerev_userip' => $this->input->ip_address(),
+			'pagerev_timestamp' => time()
+		);
+		$this->db->insert('page_revision', $page_revision);
+		$this->rev_id = $this->db->insert_id();
 	}
 }

@@ -64,7 +64,7 @@ class Page extends Controller {
 		$this->load->helper('edit_page');
 		$this->load->helper('form');
 		$page = urldecode($page);
-		$page_title = str_replace(array(' '), array('_'), $page);
+		$page_title = $this->_make_link($page);
 		$page = str_replace(array('_'), array(' '), $page);
 		
 		$this->page->load_page($page_title);
@@ -87,12 +87,14 @@ class Page extends Controller {
 		$show = array(
 			'newpage_notice' => ($this->page->id == 0),
 			// We need to add a permissions error
-			'save_buttons' => (($this->page->id == 0 && $this->ion_auth->logged_in())
-								OR
-									( ($this->page->locked == 0 && $this->ion_auth->logged_in())
-										OR
+			'save_buttons' => (
+									($this->page->id == 0 && $this->ion_auth->logged_in())
+								OR 	
+									(
+										($this->page->locked == 0)
+									OR
 										($this->ion_auth->logged_in() && $this->page->locked == 1)
-										OR
+									OR
 										($this->ion_auth->is_admin())
 									)
 								),
@@ -111,7 +113,7 @@ class Page extends Controller {
 			'editText' => $this->page->text,
 			'locked_status' => $this->page->locked,
 			'pageid' => $this->page->id,
-			'lock_link' => site_url('ajax/page/update_lock'),
+			'protection_link' => site_url('ajax/page/update_protection'),
 			'show' => $show
 		);
 		$this->load->vars($vars);
@@ -134,22 +136,60 @@ class Page extends Controller {
 				redirect($this->_make_link($page).'/edit');
 				return;
 			}
+			
 			$this->page->edit($this->input->post('editbox'), $this->input->post('comment'));
 		}
 		else
 		{
+			$comment = ($this->input->post('comment') == '') ? 'Page created' : $this->input->post('comment');
 			$this->page->create($this->_make_link($page), $this->input->post('editbox'),
-								 $this->input->post('comment'));
+								 $comment);
 		}
 		redirect($this->_make_link($page));
 	}
 	
-	/*function history($page)
+	function history($page)
 	{
+		$this->load->model('Revision_model', 'revision');
+		$this->load->model('Page_model', 'page');
+		$page = urldecode($page);
+		$page_title = $this->_make_link($page);
+		$page = str_replace(array('_'), array(' '), $page);
 		
-	}*/
+		$this->page->load_page($page_title);
+		if($this->page->id == 0)
+		{
+			die('Bad page');
+		}
+		$revs = $this->revision->get_latest_revisions($this->page->id, 20);
+		
+		$tabs = array(
+			array(
+				'selected' => false,
+				'img' => 'img/view.png',
+				'link' => site_url($page_title),
+				'name' => 'Read'
+			),
+			array(
+				'selected' => true,
+				'img' => 'img/edit.png',
+				'link' => site_url($page_title.'/edit'),
+				'name' => 'Edit'
+			)
+		);
+		
+		$vars = array(
+			'tabs' => $tabs,
+			'title' => $page,
+			'page_title' => $page,		// This is confusing
+			'page_link' => $page_title, // :p
+			'revs' => $revs
+		);
+		$this->load->vars($vars);
+		$this->load->view('sw/page/history');
+	}
 	
-	function ajax_update_lock()
+	function ajax_update_protection()
 	{
 		if(!$this->ion_auth->is_admin())
 		{
@@ -162,7 +202,7 @@ class Page extends Controller {
 		}
 		$this->load->model('Page_model', 'page');
 		$this->page->load_id($this->input->post('pageid'));
-		$this->page->update_lock($this->input->post('newlevel'));
+		$this->page->update_protection($this->input->post('newlevel'));
 		print json_encode(array('success' => 'Protection level changed'));
 	}
 	

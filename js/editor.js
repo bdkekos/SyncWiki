@@ -66,7 +66,7 @@ function lockSubmit()
 		}
 	}
 	
-	$.post(lock_link, {pageid: pageid, newlevel: newlevel}, function(data) {
+	$.post(protection_link, {pageid: pageid, newlevel: newlevel}, function(data) {
 		$('#protect').html('<p>Protection level updated.</p>');
 		var height = $('#protect').height() + 34;
 		$('.panels').animate({

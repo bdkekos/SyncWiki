@@ -58,10 +58,11 @@ $route['([^/]*?)'] = 'page/view/$1';
 $route['([^/]*?)/edit'] = 'page/edit/$1';
 $route['([^/]*?)/edit-([0-9a-zA-Z]*?)'] = 'page/edit/$1/$2';
 $route['([^/]*?)/edit/submit'] = 'page/edit_submit/$1';
+$route['([^/]*?)/history'] = 'page/history/$1';
 
 // AJAX
 
-$route['ajax/page/update_lock'] = 'page/ajax_update_lock';
+$route['ajax/page/update_protection'] = 'page/ajax_update_protection';
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

@@ -52,7 +52,7 @@
 					<hr />
 					<div id="editorTools">
 						<ul>
-							<li><a href="layoutHistory.html"><img src="<?php echo base_url(); ?>img/history.png" alt="History" />History</a></li>
+							<li><a href="<?php echo site_url($page_link.'/history'); ?>"><img src="<?php echo base_url(); ?>img/history.png" alt="History" />History</a></li>
 							<?php if($show['report']): ?>
 							<li><a href="#report"><img src="<?php echo base_url(); ?>img/report.png" alt="Report" />Report</a></li>
 							<?php endif; ?>
@@ -112,5 +112,5 @@
 					</div>
 					<?php endif; ?>
 				</div>
-				<script type="text/javascript"> var locked_status = <?php echo $locked_status; ?>; var lock_link = '<?php echo $lock_link; ?>'; var pageid = <?php echo $pageid; ?>; </script>
+				<script type="text/javascript"> var locked_status = <?php echo $locked_status; ?>; var protection_link = '<?php echo $protection_link; ?>'; var pageid = <?php echo $pageid; ?>; </script>
 <?php $this->load->view('sw/footer'); ?>

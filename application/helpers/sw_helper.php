@@ -17,3 +17,60 @@ if( ! function_exists('top_user_bar') )
 		}
 	}
 }
+
+if( ! function_exists('alt_switcher') )
+{
+	function alt_switcher($seed, $low, $high)
+	{
+		global $alt_switcher;
+		
+		if(!isset($alt_switcher[$seed]))
+		{
+			$alt_switcher[$seed] = 1;
+		}
+		elseif($alt_switcher[$seed] < $high)
+		{
+			$alt_switcher[$seed]++;
+		}
+		else
+		{
+			$alt_switcher[$seed] = $low;
+		}
+		
+		return $alt_switcher[$seed];
+	}
+}
+
+if( ! function_exists('revision_type_icon') )
+{
+	function revision_type_icon($type, $prefix)
+	{
+		$icon = $prefix;
+		switch($type)
+		{
+			case 'edit':
+				$icon .= 'edit.png';
+				break;
+			case 'create':
+				$icon .= 'add.png';
+				break;
+			case 'protection':
+				$icon .= 'protection.png';
+				break;
+			default:
+				$icon = '';
+				break;
+		}
+		
+		if($icon != '')
+		{
+			$image = "<img src=\"".$icon."\" /> ";
+		}
+		else
+		{
+			$image = '';
+		}
+		
+		return $image;
+	}
+}
