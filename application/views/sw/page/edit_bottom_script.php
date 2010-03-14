@@ -42,11 +42,14 @@
 						height: 0
 					}, delay, function () {
 						var height = $panels.hide().filter(link.hash).css('opacity', 1).show().height() + heightOffset;
-						
 						$panelwrapper.animate({
 							height: height
 						}, delay);
 					});
 				});
+			});
+			
+			$(".panels .cancel").click(function () {
+				$("#editorTools .selected").click();
 			});
 		</script>
