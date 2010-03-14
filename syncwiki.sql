@@ -86,6 +86,7 @@ CREATE TABLE `page_revision` (
   `pagerev_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pagerev_page` int(10) unsigned NOT NULL,
   `pagerev_text` int(10) unsigned NOT NULL,
+  `pagerev_type` varchar(20) NOT NULL DEFAULT 'edit',
   `pagerev_comment` tinyblob NOT NULL,
   `pagerev_userid` int(10) unsigned NOT NULL,
   `pagerev_userip` varchar(20) NOT NULL,
