@@ -27,7 +27,7 @@ CREATE TABLE `groups` (
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
@@ -49,7 +49,7 @@ CREATE TABLE `meta` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 # Dump of table page
@@ -65,7 +65,7 @@ CREATE TABLE `page` (
   `page_locked` tinyint(3) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`page_id`),
   UNIQUE KEY `name_title` (`page_title`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `page` WRITE;
 /*!40000 ALTER TABLE `page` DISABLE KEYS */;
@@ -92,7 +92,7 @@ CREATE TABLE `page_revision` (
   `pagerev_userip` varchar(20) NOT NULL,
   `pagerev_timestamp` int(20) unsigned NOT NULL,
   PRIMARY KEY (`pagerev_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `page_revision` WRITE;
 /*!40000 ALTER TABLE `page_revision` DISABLE KEYS */;
@@ -113,7 +113,7 @@ CREATE TABLE `page_text` (
   `pagetext_id` int(10) NOT NULL AUTO_INCREMENT,
   `pagetext_text` mediumblob NOT NULL,
   PRIMARY KEY (`pagetext_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 LOCK TABLES `page_text` WRITE;
 /*!40000 ALTER TABLE `page_text` DISABLE KEYS */;
@@ -142,7 +142,7 @@ CREATE TABLE `users` (
   `remember_code` varchar(40) DEFAULT NULL,
   `active` int(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 
