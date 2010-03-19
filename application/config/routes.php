@@ -61,7 +61,6 @@ $route['System/Page[ _]List'] = 'system/page_list';
 $route['([^/]*?)'] = 'page/view/$1';
 $route['([^/]*?)/edit'] = 'page/edit/$1';
 $route['([^/]*?)/edit-([0-9a-zA-Z]*?)'] = 'page/edit/$1/$2';
-$route['([^/]*?)/edit/submit'] = 'page/edit_submit/$1';
 $route['([^/]*?)/history'] = 'page/history/$1';
 $route['([^/]*?)/view/(:num)'] = 'page/view/$1/$2';
 

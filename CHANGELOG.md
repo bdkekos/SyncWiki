@@ -1,6 +1,20 @@
 SyncWiki - Changelog
 ====================
 
+Legend
+------
+
+[+] - Addtion
+[-] - Removal
+[~] - Change
+[F] - Bugfix
+
+0.1.9
+-----
+
+* [+] Edit previewing
+* [F] Protection was not working on level 1
+
 0.1.8
 -----
 
@@ -26,7 +40,7 @@ SyncWiki - Changelog
 -----
 
 * [-] Removed SW_model
-* [~] Fixed spelling on page/edit
+* [F] Fixed spelling on page/edit
 * [~] Restructured Page_model
 
 0.1.4

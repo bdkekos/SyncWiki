@@ -85,6 +85,45 @@ class Page extends Controller {
 	
 	function edit($page, $section = '')
 	{
+		// Check to see if we're editing the page and doing a preview
+		if($this->input->post('pageid') !== FALSE && $this->input->post('preview') !== FALSE)
+		{
+			// Load the parser and generate the page
+			$this->load->library('parser');
+			$this->load->vars('preview_text', $this->parser->parse($this->input->post('editbox')));
+			
+			$show_preview = true;
+		}
+		elseif($this->input->post('pageid') !== FALSE)
+		{
+			if($this->input->post('pageid') != 0)
+			{
+				$this->page->load_id($this->input->post('pageid'));
+				
+				// Check to see if we have permission to edit this page
+				if(($this->page->locked == 2 && $this->ion_auth->is_admin())
+					OR
+					($this->page->locked == 1 && $this->ion_auth->logged_in()))
+				{
+					$this->page->edit($this->input->post('editbox'), $this->input->post('comment'));
+					redirect($this->_make_link($page));
+					return;
+				}
+			}
+			else
+			{
+				// New page
+				
+				$comment = ($this->input->post('comment') == '') ? 'Page created' : $this->input->post('comment');
+				$this->page->create($this->_make_link($page), $this->input->post('editbox'),
+									 $comment);
+				redirect($this->_make_link($page));
+				return;
+			}
+			
+			// Something has fallen through, so we need to display the edit page...
+		}
+		
 		$this->load->helper('edit_page');
 		$this->load->helper('form');
 		$page = urldecode($page);
@@ -125,7 +164,8 @@ class Page extends Controller {
 			'tools' => ($this->page->id != 0),
 			'mod_tools' => ($this->ion_auth->is_admin()),
 			'report' => ($this->ion_auth->logged_in()),
-			'previous_deleted' => ($this->page->id == 0 && $this->ion_auth->is_admin() && $this->page->previous_deleted($page_title)->num_rows() > 0)
+			'previous_deleted' => ($this->page->id == 0 && $this->ion_auth->is_admin() && $this->page->previous_deleted($page_title)->num_rows() > 0),
+			'edit_preview' => isset($show_preview)
 		);
 		
 		$vars = array(
@@ -135,7 +175,8 @@ class Page extends Controller {
 			'page_link' => $page_title, // :p
 			'headinclude' => $this->load->view('sw/page/edit_headinclude', '', TRUE),
 			'bottom_script' => $this->load->view('sw/page/edit_bottom_script', '', TRUE),
-			'editText' => $this->page->text,
+			'editText' => ($this->input->post('editbox') === FALSE) ? $this->page->text : $this->input->post('editbox'),
+			'comment' => ($this->input->post('comment') === FALSE) ? '' : $this->input->post('comment'),
 			'locked_status' => $this->page->locked,
 			'pageid' => $this->page->id,
 			'protection_link' => site_url('ajax/page/update_protection'),
@@ -146,7 +187,7 @@ class Page extends Controller {
 		$this->load->view('sw/page/edit');
 	}
 	
-	function edit_submit($page)
+	/*function edit_submit($page)
 	{
 		if($this->input->post('pageid') === FALSE)
 		{
@@ -171,7 +212,7 @@ class Page extends Controller {
 								 $comment);
 		}
 		redirect($this->_make_link($page));
-	}
+	}*/
 	
 	function history($page)
 	{

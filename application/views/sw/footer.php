@@ -1,5 +1,5 @@
 				<div id="footer">
-					<a href="<?php echo base_url(); ?>CHANGELOG.md">Version 0.1.8</a><br />
+					<a href="<?php echo base_url(); ?>CHANGELOG.md">Version 0.1.9</a><br />
 					&copy; 2010 compwhizii
 				</div>
 			</div>

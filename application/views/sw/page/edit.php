@@ -1,6 +1,12 @@
 <?php $this->load->view('sw/header'); ?>
 				<?php echo build_tabs($tabs, $page_title); ?>
 				<div class="content" id="editor">
+					<?php if($show['edit_preview']): ?>
+					<h1>Preview:</h1>
+					<div id="edit_preview">
+						<?php echo $preview_text; ?>
+					</div>
+					<?php endif; ?>
 					<?php echo edit_page_locked($locked_status); ?>
 					<?php if($show['newpage_notice']): ?>
 					<div class="new_page new_page_img top_bar">
@@ -12,7 +18,7 @@
 						This page has previously deleted versions.
 					</div>
 					<?php endif; ?>
-					<?php echo form_open($page_link.'/edit/submit'); ?>
+					<?php echo form_open($page_link.'/edit'); ?>
 						<?php 
 							$data = array(
 								'name' => 'editbox',
@@ -33,7 +39,8 @@
 										'name' => 'comment',
 										'maxlength' => '200',
 										'size' => '55',
-										'tabindex' => '2'
+										'tabindex' => '2',
+										'value' => $comment
 									);
 									echo form_input($data);
 								 ?>
