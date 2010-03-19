@@ -187,33 +187,6 @@ class Page extends Controller {
 		$this->load->view('sw/page/edit');
 	}
 	
-	/*function edit_submit($page)
-	{
-		if($this->input->post('pageid') === FALSE)
-		{
-			redirect($this->_make_link($page).'/edit');
-			return;
-		}
-		if($this->input->post('pageid') != 0)
-		{
-			$this->page->load_id($this->input->post('pageid'));
-			if($this->page->locked == 2 && !$this->ion_auth->is_admin())
-			{
-				redirect($this->_make_link($page).'/edit');
-				return;
-			}
-			
-			$this->page->edit($this->input->post('editbox'), $this->input->post('comment'));
-		}
-		else
-		{
-			$comment = ($this->input->post('comment') == '') ? 'Page created' : $this->input->post('comment');
-			$this->page->create($this->_make_link($page), $this->input->post('editbox'),
-								 $comment);
-		}
-		redirect($this->_make_link($page));
-	}*/
-	
 	function history($page)
 	{
 		$this->load->model('Revision_model', 'revision');
