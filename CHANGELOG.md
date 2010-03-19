@@ -33,7 +33,7 @@ SyncWiki - Changelog
 -----
 
 * [+] Added link to go back to the home page for non-standard page
-* [~] Changed login page not ot use tables
+* [~] Changed login page not to use tables
 
 0.1.3
 -----
