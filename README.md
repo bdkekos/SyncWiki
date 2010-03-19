@@ -1,4 +1,4 @@
-Syncwiki
+SyncWiki
 ========
 
 Syncwiki is wiki software powered by the CodeIgniter framework. Right now it's still in it's early stages of development, so if you want to help out, fork a copy!
