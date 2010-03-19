@@ -8,3 +8,5 @@ SyncWiki - TODO
 + [ ] Page redirects
 + [ ] User list
 + [ ] Deleted versions viewing
++ [ ] Reports system
++ [ ] Undo edits
