@@ -40,16 +40,18 @@ function deleteSubmit()
 		return false;
 	}
 	
-	var $content = $(".content"),
-		contentHeight = $content.height() + 30;
-	$content.css('height', contentHeight);
-	$content.children().fadeOut('fast', function() {
-			$content.html("<div class=\"delete delete_img\">This page has been successfully deleted.</div>")
-				.fadeIn('fast', function() { 
-					$content.animate({height: 48}, 500);
-				});
-		});
-		
+	$.post(delete_link, {pageid: pageid, reason: $("#delete_reason").val()}, function(data) {
+		var $content = $(".content"),
+			contentHeight = $content.height() + 30;
+		$content.css('height', contentHeight);
+		$content.children().fadeOut('fast', function() {
+				$content.html("<div class=\"delete delete_img\">This page has been successfully deleted.</div>")
+					.fadeIn('fast', function() { 
+						$content.animate({height: 48}, 500);
+					});
+			});
+	});
+	
 	return false;
 }
 

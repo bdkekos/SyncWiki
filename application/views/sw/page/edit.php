@@ -7,6 +7,11 @@
 						The page you're editing doesn't exist, when you save you will create it.
 					</div>
 					<?php endif; ?>
+					<?php if($show['previous_deleted']): ?>
+					<div class="delete delete_img top_bar">
+						This page has previously deleted versions.
+					</div>
+					<?php endif; ?>
 					<?php echo form_open($page_link.'/edit/submit'); ?>
 						<?php 
 							$data = array(
@@ -78,7 +83,7 @@
 									<input type="text" id="other_box" name="other" size="30" style="margin-left: 15px;" />
 								</div>
 								<input type="submit" value="Report" />
-								<input type="button" class="cancel" value="Cancel" />
+								<?php echo form_button('cancel', 'Cancel', 'class="cancel"'); ?>
 							</form>
 						</div>
 						<?php endif; ?>
@@ -95,25 +100,32 @@
 									<label for="level"><?php echo form_radio('level', '2', ($locked_status == 2)); ?> Admins only</label>
 								</div>
 								<?php echo form_submit('update_lock', 'Save'); ?>
-								<input type="button" class="cancel" value="Cancel" />
+								<?php echo form_button('cancel', 'Cancel', 'class="cancel"'); ?>
 							</form>
 						</div>
 						<div id="delete" class="delete panel">
 							<h2>Delete this page</h2>
 							<p>If this page is breaking rules, remove it!</p>
 							<br />
-							<form action="#" id="delete_form">
+							<?php 
+								$extra = array('id' => 'delete_form');
+								echo form_open($page_link.'/edit/delete', $extra); ?>
 								<div class="options">
 									<label for="delete_reason"><strong>Reason:</strong> <br />
-										<input type="text" name="reason" id="delete_reason" size="30" /></label>
+										<?php 	$data = array(
+													'name' => 'reason',
+													'id' => 'delete_reason',
+													'size' => '30'
+												);
+												echo form_input($data); ?></label>
 								</div><br /><br />
-								<input type="submit" value="Delete" />
-								<input type="button" class="cancel" value="Cancel" />
-							</form>
+								<?php echo form_submit('delete', 'Delete'); ?>
+								<?php echo form_button('cancel', 'Cancel', 'class="cancel"'); ?>
+							<?php echo form_close(); ?>
 						</div>
 						<?php endif; ?>
 					</div>
 					<?php endif; ?>
 				</div>
-				<script type="text/javascript"> var locked_status = <?php echo $locked_status; ?>; var protection_link = '<?php echo $protection_link; ?>'; var pageid = <?php echo $pageid; ?>; </script>
+				<script type="text/javascript"> var locked_status = <?php echo $locked_status; ?>; var protection_link = '<?php echo $protection_link; ?>'; var pageid = <?php echo $pageid; ?>; var delete_link = '<?php echo $delete_link; ?>';</script>
 <?php $this->load->view('sw/footer'); ?>

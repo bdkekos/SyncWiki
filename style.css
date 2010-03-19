@@ -2,6 +2,7 @@ body {
 	color: #444444;
 	font-family: "lucida grande","Segoe UI",arial,verdana,"lucida sans unicode",tahoma,sans-serif;
 	font-size: 8pt;
+	background: #EFEFEF;
 }
 
 * {
@@ -73,6 +74,7 @@ hr {
 	padding: 15px;
 	border: 1px solid #AECEEF;
 	border-width: 0 1px 1px 1px;
+	background: #F7F7F7;
 }
 
 #footer {
@@ -101,8 +103,8 @@ ul#tabs li {
 }
 
 ul#tabs li.selected {
-	background-color: #FFFFFF;
-	border-bottom: 1px solid #FFFFFF;
+	background-color: #F7F7F7;
+	border-bottom: 1px solid #F7F7F7;
 	margin-top: 0;
 	position: relative;
 	padding-top: 1px;
@@ -200,6 +202,18 @@ div#editorTools {
 	width: 16px;
 	margin-right: 3px;
 	vertical-align: bottom;
+}
+
+.view {
+	background-color: #C2DCF4;
+	border: 2px solid #9ed7ee;
+	padding: 5px;
+	margin: 10px 0;
+}
+
+.view_img {
+	background: url(img/view2.png) no-repeat scroll 5px 4px #C2DCF4;
+	padding-left: 26px;
 }
 
 .protection {

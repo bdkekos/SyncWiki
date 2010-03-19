@@ -7,6 +7,7 @@ class Page extends Controller {
 		parent::__construct();
 		
 		$this->load->helper('tab');
+		$this->load->model('Page_model', 'page');
 	}
 	
 	function index()
@@ -15,9 +16,8 @@ class Page extends Controller {
 		$this->view('Main Page');
 	}
 	
-	function view($page)
+	function view($page, $rev = 0)
 	{
-		$this->load->model('Page_model', 'page');
 		$this->load->library('parser');
 		$page = urldecode($page);
 		$page_title = str_replace(array(' '), array('_'), $page);
@@ -25,10 +25,31 @@ class Page extends Controller {
 		
 		$query = $this->page->load_page($page_title);
 		
+		$show = array();
+		$show['page_rev'] = false;
+		
 		if($query === FALSE)
 		{
 			// The page doesn't exist
 			$this->page->text = 'This page doesn\'t exist yet, press edit to create it';
+		}
+		elseif($rev != 0)
+		{
+			$query_rev = $this->page->load_rev($rev);
+			if($query_rev === FALSE)
+			{
+				$this->page->text = 'Bad revision ID';
+			}
+			else
+			{
+				$show['page_rev'] = true;
+				$this->page->load_rev_surrounding($rev);
+				$rev_vars = array(
+					'next_rev' => $this->page->next_rev_id,
+					'prev_rev' => $this->page->prev_rev_id
+				);
+				$this->load->vars($rev_vars);
+			}
 		}
 		
 		$aText = $this->parser->parse($this->page->text);
@@ -52,7 +73,11 @@ class Page extends Controller {
 			'tabs' => $tabs,
 			'title' => $page,
 			'page_title' => $page,
-			'text' => $aText
+			'text' => $aText,
+			'show' => $show,
+			'timestamp' => $this->page->rev_timestamp,
+			'user' => (($this->page->rev_username != '') ? $this->page->rev_username : $this->page->rev_ipaddress),
+			'comment' => $this->page->rev_comment
 		);
 		$this->load->vars($vars);
 		$this->load->view('sw/page/view');
@@ -60,7 +85,6 @@ class Page extends Controller {
 	
 	function edit($page, $section = '')
 	{
-		$this->load->model('Page_model', 'page');
 		$this->load->helper('edit_page');
 		$this->load->helper('form');
 		$page = urldecode($page);
@@ -100,7 +124,8 @@ class Page extends Controller {
 								),
 			'tools' => ($this->page->id != 0),
 			'mod_tools' => ($this->ion_auth->is_admin()),
-			'report' => ($this->ion_auth->logged_in())
+			'report' => ($this->ion_auth->logged_in()),
+			'previous_deleted' => ($this->page->id == 0 && $this->ion_auth->is_admin() && $this->page->previous_deleted($page_title)->num_rows() > 0)
 		);
 		
 		$vars = array(
@@ -114,6 +139,7 @@ class Page extends Controller {
 			'locked_status' => $this->page->locked,
 			'pageid' => $this->page->id,
 			'protection_link' => site_url('ajax/page/update_protection'),
+			'delete_link' => site_url('ajax/page/delete'),
 			'show' => $show
 		);
 		$this->load->vars($vars);
@@ -127,7 +153,6 @@ class Page extends Controller {
 			redirect($this->_make_link($page).'/edit');
 			return;
 		}
-		$this->load->model('Page_model', 'page');
 		if($this->input->post('pageid') != 0)
 		{
 			$this->page->load_id($this->input->post('pageid'));
@@ -151,7 +176,6 @@ class Page extends Controller {
 	function history($page)
 	{
 		$this->load->model('Revision_model', 'revision');
-		$this->load->model('Page_model', 'page');
 		$page = urldecode($page);
 		$page_title = $this->_make_link($page);
 		$page = str_replace(array('_'), array(' '), $page);
@@ -200,10 +224,25 @@ class Page extends Controller {
 			print json_encode(array('error' => 'Missing pageid/newlevel'));
 			return;
 		}
-		$this->load->model('Page_model', 'page');
 		$this->page->load_id($this->input->post('pageid'));
 		$this->page->update_protection($this->input->post('newlevel'));
 		print json_encode(array('success' => 'Protection level changed'));
+	}
+	
+	function ajax_delete()
+	{
+		if(!$this->ion_auth->is_admin())
+		{
+			return;
+		}
+		if(!$this->input->post('pageid') || $this->input->post('reason') === FALSE)
+		{
+			print json_encode(array('error' => 'Missing pageid/reason'));
+			return;
+		}
+		$this->page->load_id($this->input->post('pageid'));
+		$this->page->delete($this->input->post('reason'));
+		print json_encode(array('success' => 'Page deleted'));
 	}
 	
 	function _make_link($page)

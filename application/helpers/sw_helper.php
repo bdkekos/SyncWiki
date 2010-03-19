@@ -57,6 +57,11 @@ if( ! function_exists('revision_type_icon') )
 			case 'protection':
 				$icon .= 'protection.png';
 				break;
+			case 'undelete':
+				$icon .= 'un';
+			case 'delete':
+				$icon .= 'delete.png';
+				break;
 			default:
 				$icon = '';
 				break;

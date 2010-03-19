@@ -51,6 +51,10 @@ $route['scaffolding_trigger'] = "";
 
 $route['auth'] = 'auth';
 
+// System
+
+$route['System/Page[ _]List'] = 'system/page_list';
+
 // Pages
 // Must be last as they override
 
@@ -59,10 +63,12 @@ $route['([^/]*?)/edit'] = 'page/edit/$1';
 $route['([^/]*?)/edit-([0-9a-zA-Z]*?)'] = 'page/edit/$1/$2';
 $route['([^/]*?)/edit/submit'] = 'page/edit_submit/$1';
 $route['([^/]*?)/history'] = 'page/history/$1';
+$route['([^/]*?)/view/(:num)'] = 'page/view/$1/$2';
 
 // AJAX
 
 $route['ajax/page/update_protection'] = 'page/ajax_update_protection';
+$route['ajax/page/delete'] = 'page/ajax_delete';
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */
