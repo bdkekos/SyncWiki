@@ -1,6 +1,6 @@
 <?php
 
-class Revision_model extends Model {
+class Revision_model extends CI_Model {
 	
 	function get_latest_revisions($page_id, $limit = 20)
 	{
