@@ -10,7 +10,7 @@ SyncWiki - TODO
 + [ ] Deleted versions viewing
 + [ ] Reports system
 + [ ] Undo edits
-+ [ ] Move version infomation into a configuration file
++ [X] Move version infomation into a configuration file - (0.1.10)
 
 Legend
 ------

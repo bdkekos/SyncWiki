@@ -9,6 +9,12 @@ Legend
 [~] - Change
 [F] - Bugfix
 
+0.1.10
+------
+
+* [~] Updated Ion Auth
+* [+] Version now stored in SyncWiki config file
+
 0.1.9
 -----
 
