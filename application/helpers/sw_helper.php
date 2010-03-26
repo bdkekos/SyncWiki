@@ -79,3 +79,23 @@ if( ! function_exists('revision_type_icon') )
 		return $image;
 	}
 }
+
+if( ! function_exists('syncwiki_version') )
+{
+	function syncwiki_version()
+	{
+		$CI =& get_instance();
+		
+		return $CI->config->item('syncwiki_version');
+	}
+}
+
+if( ! function_exists('syncwiki_with_ci2') )
+{
+	function syncwiki_with_ci2()
+	{
+		$CI =& get_instance();
+		
+		return $CI->config->item('syncwiki_version');
+	}
+}

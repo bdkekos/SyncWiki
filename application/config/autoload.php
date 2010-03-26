@@ -66,7 +66,7 @@ $autoload['helper'] = array('url', 'sw');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('syncwiki');
 
 
 /*

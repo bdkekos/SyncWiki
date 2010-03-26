@@ -9,6 +9,19 @@ Legend
 [~] - Change
 [F] - Bugfix
 
+CI2 branch specific changes will be suffixed with '_CI2'
+
+0.1.10_CI2
+----------
+
+* [+] Added note about using CI2 to the footer
+
+0.1.10
+------
+
+* [~] Updated Ion Auth
+* [+] Version now stored in SyncWiki config file
+
 0.1.9
 -----
 

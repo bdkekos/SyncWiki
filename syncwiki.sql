@@ -136,13 +136,16 @@ CREATE TABLE `users` (
   `ip_address` char(16) NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(40) NOT NULL,
+  `salt` varchar(40) DEFAULT NULL,
   `email` varchar(40) NOT NULL,
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
   `remember_code` varchar(40) DEFAULT NULL,
+  `created_on` int(11) unsigned NOT NULL,
+  `last_login` int(11) unsigned DEFAULT NULL,
   `active` int(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+);
 
 
 
