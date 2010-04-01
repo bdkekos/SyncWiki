@@ -1,5 +1,18 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if( ! function_exists('edit_page_locked') )
+{
+	function edit_page_locked($lock_status)
+	{
+		$CI =& get_instance();
+		if($lock_status == 0)
+			return '';
+		$who = ($lock_status == 1) ? 'unregisted users' : 'non-admins';
+		$CI->load->vars('locked_who', $who);
+		return $CI->load->view('sw/page/edit_locked', '', TRUE);
+	}
+}
+
 if( ! function_exists('top_user_bar') )
 {
 	function top_user_bar()
@@ -88,4 +101,17 @@ if( ! function_exists('syncwiki_version') )
 		
 		return $CI->config->item('syncwiki_version');
 	}
+}
+
+function gravatar( $email, $rating = 'X', $size = '120', $default = 'http://gravatar.com/avatar.php' )
+{
+	// Hash the email address
+	$email = md5( $email );
+	
+	// Return the generated URL
+	return "http://gravatar.com/avatar.php?gravatar_id="
+	    .$email."&amp;rating="
+	    .$rating."&amp;size="
+	    .$size."&amp;default="
+	    .$default;
 }

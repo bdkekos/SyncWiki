@@ -279,7 +279,7 @@ class Page_model extends Model {
 	{
 		$this->db->from('page');
 		$this->db->select('page_title');
-		$this->db->order_by('page_title', 'desc');
+		$this->db->order_by('page_title', 'asc');
 		$this->db->limit($limit, $start);
 		return $this->db->get();
 	}

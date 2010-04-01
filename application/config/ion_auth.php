@@ -54,7 +54,7 @@
 	 * Columns in your meta table,
 	 * id not required.
 	 **/
-	$config['columns']             = array();
+	$config['columns']             = array('show_toolbox');
 	
 	/**
 	 * A database column which is used to

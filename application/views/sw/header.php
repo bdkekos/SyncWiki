@@ -6,6 +6,11 @@
 		<?php if(isset($redirect)): ?>
 		<meta http-equiv="refresh" content="<?php echo $redirect['length']; ?>;URL=<?php echo $redirect['url']; ?>" />
 		<?php endif; ?>
+		<script type="text/javascript" src="<?php echo base_url(); ?>js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript">
+			var toolbox_toggle_link = "<?php echo site_url('ajax/toolbox_toggle'); ?>";
+		</script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>js/syncwiki.js"></script>
 		<?php if(isset($headinclude)) { echo $headinclude; } ?>
 	</head>
 	<body>

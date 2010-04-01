@@ -64,13 +64,6 @@ class Ion_auth
 	protected $error_end_delimiter;
 
 	/**
-	 * extra where
-	 *
-	 * @var array
-	 **/
-	public $_extra_where = array();
-
-	/**
 	 * extra set
 	 *
 	 * @var array
@@ -587,9 +580,9 @@ class Ion_auth
 	 * @return void
 	 * @author Phil Sturgeon
 	 **/
-	public function update_user($id, $data)
+	public function update_user($data, $id = false)
 	{
-		 if ($this->ci->ion_auth_model->update_user($id, $data))
+		 if ($this->ci->ion_auth_model->update_user($data, $id))
 		 {
 		 	$this->set_message('update_successful');
 		 	return TRUE;
@@ -632,24 +625,6 @@ class Ion_auth
 	public function set_lang($lang = 'en')
 	{
 		 return $this->ci->ion_auth_model->set_lang($lang);
-	}
-	
-	
-	/**
-	 * extra_where
-	 * 
-	 * Crazy function that allows extra where field to be used for user fetching/unique checking etc.
-	 * Basically this allows users to be unique based on one other thing than the identifier which is helpful
-	 * for sites using multiple domains on a single database.
-	 *
-	 * @return void
-	 * @author Phil Sturgeon
-	 **/
-	public function extra_where()
-	{
-		$where =& func_get_args();
-		
-		$this->_extra_where = count($where) == 1 ? $where[0] : array($where[0] => $where[1]);
 	}
 	
 	/**

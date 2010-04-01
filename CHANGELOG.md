@@ -9,6 +9,17 @@ Legend
 [~] - Change
 [F] - Bugfix
 
+0.1.11
+------
+
+* [+] Added page for system pages
+* [+] Added user list
+* [+] Rudementry user pages
+* [-] Removed edit_page_helper, moved lone function into sw_helper
+* [+] Added powered by to footer
+* [+] User will now return to the page last visited when logging in and out
+* [+] Toolbox at bottom of page
+
 0.1.10
 ------
 

@@ -29,12 +29,14 @@ class Auth extends Controller {
 			
 			if($this->ion_auth->login($this->input->post('username'), $this->input->post('password'), $remember))
 			{
+				$url = ($this->session->userdata('last_page') !== FALSE) ? $this->session->userdata('last_page') : base_url();
+				
 				// We're logged in!
 				$vars = array(
 						'title' => 'Success!',
 						's_title' => 'You have successfully logged in',
-						's_desc' => 'You will now be redirected back home',
-						'redirect' => array('length' => '2', 'url' => base_url())
+						's_desc' => 'You will now be redirected back where you were, or <a href="'.$url.'">skip waiting</a>',
+						'redirect' => array('length' => '2', 'url' => $url)
 					);
 				$this->load->vars($vars);
 				$this->load->view('sw/redirect');
@@ -90,10 +92,11 @@ class Auth extends Controller {
 			$this->ion_auth->register($this->input->post('username'),
 				$this->input->post('password'), $this->input->post('email'), array());
 			$this->ion_auth->login($this->input->post('username'), $this->input->post('password'), true);
+			$url = ($this->session->userdata('last_page') !== FALSE) ? $this->session->userdata('last_page') : base_url();
 			$vars = array(
 					'title' => 'Success!',
 					's_title' => 'Your account has been created',
-					's_desc' => '<a href="'.base_url().'">Go home</a>'
+					's_desc' => '<a href="'.$url.'">Go back to where you were</a>'
 				);
 			$this->load->vars($vars);
 			$this->load->view('sw/redirect');
@@ -131,11 +134,14 @@ class Auth extends Controller {
 	function logout()
 	{
 		$this->ion_auth->logout();
+		
+		$url = ($this->session->userdata('last_page') !== FALSE) ? $this->session->userdata('last_page') : base_url();
+		
 		$vars = array(
 				'title' => 'Success!',
 				's_title' => 'You have been logged out',
-				's_desc' => 'You will be redirected home, or <a href="'.base_url().'">skip waiting</a>',
-				'redirect' => array('length' => '2', 'url' => base_url())
+				's_desc' => 'You will be redirected back where you were, or <a href="'.$url.'">skip waiting</a>',
+				'redirect' => array('length' => '2', 'url' => $url)
 			);
 		$this->load->vars($vars);
 		$this->load->view('sw/redirect');

@@ -10,7 +10,12 @@
 |
 */
 
-
+$hook['post_controller_constructor'] = array(
+                                'class'    => '',
+                                'function' => 'toolbox_prep',
+                                'filename' => 'post_controller_constructor.php',
+                                'filepath' => 'hooks'
+                                );
 
 /* End of file hooks.php */
 /* Location: ./system/application/config/hooks.php */

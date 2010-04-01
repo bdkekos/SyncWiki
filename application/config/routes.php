@@ -47,16 +47,8 @@ $route['scaffolding_trigger'] = "";
 ** SyncWiki Routes Ahoy! **
 **************************/
 
-// Auth
-
-$route['auth'] = 'auth';
-
-// System
-
-$route['System/Page[ _]List'] = 'system/page_list';
-
 // Pages
-// Must be last as they override
+// Must be first so that others acn override
 
 $route['([^/]*?)'] = 'page/view/$1';
 $route['([^/]*?)/edit'] = 'page/edit/$1';
@@ -64,10 +56,26 @@ $route['([^/]*?)/edit-([0-9a-zA-Z]*?)'] = 'page/edit/$1/$2';
 $route['([^/]*?)/history'] = 'page/history/$1';
 $route['([^/]*?)/view/(:num)'] = 'page/view/$1/$2';
 
+// Auth
+
+$route['auth'] = 'auth';
+
+// System
+
+$route['System'] = 'system';
+$route['System/Page[ _]List'] = 'system/page_list';
+$route['System/User[ _]List'] = 'system/user_list';
+
+// Users
+
+$route['User/([^/]*?)'] = 'user/view/$1';
+$route['User/([^/]*?)/message'] = 'user/message/$1';
+
 // AJAX
 
 $route['ajax/page/update_protection'] = 'page/ajax_update_protection';
 $route['ajax/page/delete'] = 'page/ajax_delete';
+$route['ajax/toolbox_toggle'] = 'system/ajax_toolbox_update';
 
 /* End of file routes.php */
 /* Location: ./system/application/config/routes.php */

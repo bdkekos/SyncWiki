@@ -3,4 +3,4 @@
 /**
  * Version variable, as seen in footer. Don't change this
  */
-$config['syncwiki_version'] = '0.1.10';
+$config['syncwiki_version'] = '0.1.11';

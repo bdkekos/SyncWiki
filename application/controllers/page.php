@@ -81,6 +81,8 @@ class Page extends Controller {
 		);
 		$this->load->vars($vars);
 		$this->load->view('sw/page/view');
+		
+		$this->session->set_userdata('last_page', current_url());
 	}
 	
 	function edit($page, $section = '')
@@ -124,7 +126,6 @@ class Page extends Controller {
 			// Something has fallen through, so we need to display the edit page...
 		}
 		
-		$this->load->helper('edit_page');
 		$this->load->helper('form');
 		$page = urldecode($page);
 		$page_title = $this->_make_link($page);
@@ -185,6 +186,8 @@ class Page extends Controller {
 		);
 		$this->load->vars($vars);
 		$this->load->view('sw/page/edit');
+		
+		$this->session->set_userdata('last_page', current_url());
 	}
 	
 	function history($page)
@@ -225,6 +228,8 @@ class Page extends Controller {
 		);
 		$this->load->vars($vars);
 		$this->load->view('sw/page/history');
+		
+		$this->session->set_userdata('last_page', current_url());
 	}
 	
 	function ajax_update_protection()
