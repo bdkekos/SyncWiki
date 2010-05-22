@@ -6,7 +6,7 @@ SyncWiki - TODO
 + [ ] Password change
 + [ ] Page moving
 + [ ] Page redirects
-+ [ ] User list
++ [X] User list -  (0.1.11)
 + [ ] Deleted versions viewing
 + [ ] Reports system
 + [ ] Undo edits

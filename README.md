@@ -6,9 +6,11 @@ Syncwiki is wiki software powered by the CodeIgniter framework. Right now it's s
 Thanks to
 ---------
 
++ John Du Hart
 + a2h
 + Ben Edmunds
 + Gary Woodhouse
++ Charile Somerville
 
 *If I'm missing someone I'm sorry, let me know*
 

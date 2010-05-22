@@ -9,6 +9,24 @@ Legend
 [~] - Change
 [F] - Bugfix
 
+0.1.12
+------
+
+* [+] Added edit counter
+* [+] Counter rebuilder
+* [+] Replaced SW Parser for MediaWiki's
+*	[+] Bullets work
+* 	[+] Intented bullets
+*	[+] DT and DDs added to parser
+* [~] Main Page is now know as Home
+* [-] Removed layouts
+* [+] Added brumbcumb link for navigation
+* [+] Language file for translations
+* [~] Moved tabhelper functions to the sw_helper file
+* [+] Major overhaul of the Profiler
+* [~] Lock levels are now constants (LOCK_STATUS_NONE, etc)
+* [+] Documentated functions
+
 0.1.11
 ------
 
